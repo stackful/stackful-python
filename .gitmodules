@@ -1,0 +1,18 @@
+[submodule "imported-cookbooks/postgresql"]
+	path = imported-cookbooks/postgresql
+	url = https://github.com/opscode-cookbooks/postgresql.git
+[submodule "imported-cookbooks/apt"]
+	path = imported-cookbooks/apt
+	url = https://github.com/opscode-cookbooks/apt.git
+[submodule "imported-cookbooks/build-essential"]
+	path = imported-cookbooks/build-essential
+	url = https://github.com/opscode-cookbooks/build-essential.git
+[submodule "imported-cookbooks/ohai"]
+	path = imported-cookbooks/ohai
+	url = https://github.com/opscode-cookbooks/ohai.git
+[submodule "imported-cookbooks/python"]
+	path = imported-cookbooks/python
+	url = https://github.com/opscode-cookbooks/python.git
+[submodule "imported-cookbooks/yum"]
+	path = imported-cookbooks/yum
+	url = https://github.com/opscode-cookbooks/yum.git

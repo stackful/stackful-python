@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import sys
+import re
+import subprocess
+
+if len(sys.argv) != 3:
+    print("import-cookbook <cookbook-url> <cookbook-version>")
+    sys.exit(1)
+
+cookbook_url = sys.argv[1]
+cookbook_version = sys.argv[2]
+cookbook_name = re.match(r".*/(?P<name>[^/.]+)\.git+$", cookbook_url, re.IGNORECASE).group("name")
+
+subprocess.check_call("git submodule add '{}' 'imported-cookbooks/{}' -b '{}'".format(
+    cookbook_url, cookbook_name, cookbook_version), shell=True)

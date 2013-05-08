@@ -11,5 +11,5 @@ default_attributes(
 
 
 run_list [
-  "recipe[stackful-python::default]",
+  "recipe[python::default]",
 ]

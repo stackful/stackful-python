@@ -2,3 +2,7 @@ params*.json
 git_user.txt
 *.pyc
 .vagrant
+distribute-*
+distribute_*
+chef-*.pid
+chef-*.out

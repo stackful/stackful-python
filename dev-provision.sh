@@ -15,3 +15,11 @@ else
     apt-get install --yes curl
     curl -L https://www.opscode.com/chef/install.sh | bash
 fi
+
+# Prepare stack attributes, if needed
+if [ -f "/etc/stackful/node.json" ] ; then
+    echo "Stack already installed."
+else
+    mkdir -p /etc/stackful
+    cp /vagrant/node.json.sample /etc/stackful/node.json
+fi
