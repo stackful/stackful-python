@@ -15,5 +15,10 @@
   "db-password": "VRyisb15r2Q15OZ",
   "app-port": 3000,
   "app-home": "/var/www/py-web"
+ },
+ "postgresql": {
+    "password": {
+        "postgres": "VRyisb15r2Q15OZ"
+    }
  }
 }
