@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import sys, os, subprocess
+import json
+
+stack_dir = os.path.dirname(os.path.abspath(__file__))
+
+chef_cmd = "chef-solo -c '{0}/stack.rb' -j '/etc/stackful/node.json'".format(stack_dir)
+subprocess.check_call(chef_cmd, shell=True)
