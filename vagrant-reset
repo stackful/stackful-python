@@ -1,0 +1,5 @@
+#!/bin/sh
+
+vagrant snapshot go chef-only
+# reverting to a snapshot starts the vm in an unmanaged state (no ssh port forwards, etc)
+vagrant halt -f
