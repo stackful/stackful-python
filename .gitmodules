@@ -16,3 +16,12 @@
 [submodule "imported-cookbooks/yum"]
 	path = imported-cookbooks/yum
 	url = https://github.com/opscode-cookbooks/yum.git
+[submodule "imported-cookbooks/openssl"]
+	path = imported-cookbooks/openssl
+	url = https://github.com/opscode-cookbooks/openssl.git
+[submodule "imported-cookbooks/psql"]
+	path = imported-cookbooks/psql
+	url = https://github.com/realityforge/chef-psql.git
+[submodule "imported-cookbooks/cutlery"]
+	path = imported-cookbooks/cutlery
+	url = https://github.com/realityforge/chef-cutlery.git
