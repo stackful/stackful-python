@@ -2,18 +2,20 @@
 
 export DEBIAN_FRONTEND=noninteractive
 export CHEF_GEM=/opt/chef/embedded/bin/gem
-# Get rid of the ancient Vagrant Chef
-# Not needed on boxes that already pack Chef 11
-sudo /opt/vagrant_ruby/bin/gem uninstall chef ohai
+chef_version="11.4.4"
+chef_url="https://www.opscode.com/chef/download?v=$chef_version&prerelease=false&p=ubuntu&pv=12.04&m=x86_64"
 
-
-# Install latest Chef release, if needed
-chef_location=$(which chef-solo)
-if [ -x "$chef_location" ] ; then
-    echo "Chef Solo already installed: $chef_location"
+if chef-solo -v | grep "$chef_version" > /dev/null ; then
+    echo "Chef $version found"
 else
-    apt-get install --yes curl
-    curl -L https://www.opscode.com/chef/install.sh | bash
+    if ! [ -f /vagrant/.debs-cache/chef.deb ] ; then
+        wget --progress=dot "$chef_url" -O /vagrant/.debs-cache/chef.deb
+    fi
+
+    /opt/chef/embedded/bin/gem uninstall chef
+    apt-get purge --yes chef
+
+    dpkg -i /vagrant/.debs-cache/chef.deb
 fi
 
 # Prepare stack attributes, if needed
