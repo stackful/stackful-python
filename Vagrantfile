@@ -7,11 +7,13 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise32"
+  # config.vm.box = "precise32"
+  # config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
   # Ubuntu 12.04.2 AMD64 (Chef 11 installed via Omnibus; VirtualBox 4.2.6; Standard Puppet)
   # vagrant box add "ubuntu-12.04-omnibus-chef" "https://s3.amazonaws.com/gsc-vagrant-boxes/ubuntu-12.04-omnibus-chef.box"
-  # config.vm.box = "ubuntu-12.04-omnibus-chef"
+  config.vm.box = "ubuntu-12.04-omnibus-chef"
+  config.vm.box_url = "https://s3.amazonaws.com/gsc-vagrant-boxes/ubuntu-12.04-omnibus-chef.box"
 
 
   config.vm.provider :virtualbox do |v|
@@ -22,9 +24,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, :path => "dev-provision.sh"
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
