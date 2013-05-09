@@ -2,11 +2,6 @@ name 'python-webserver'
 description 'Stackful.io Python web app server'
 
 default_attributes({
-  "nginx" => {
-    "install_method" => "package",
-    "init_style" => "init",
-    "version" => "1.3.14"
-  },
 })
 
 # PostgreSQL package names need to be overridden
@@ -24,15 +19,19 @@ override_attributes({
     "config" => {
       "ssl" => false
     }
-  }
+  },
+  "nginx" => {
+    "install_method" => "package",
+    "init_style" => "init",
+    "version" => "1.4.1"
+  },
 })
 
 
 run_list [
   "recipe[python::default]",
-#postgresql db creation fails on Vagrant boxes if the locale isn't set to en_US.UTF-8
-  "recipe[set_locale::default]",
   "recipe[postgresql::ppa_pitti_postgresql]",
   "recipe[postgresql::server]",
   "recipe[stackful-python::postgresql]",
+  "recipe[stackful-python::nginx]",
 ]

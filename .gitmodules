@@ -25,3 +25,9 @@
 [submodule "imported-cookbooks/cutlery"]
 	path = imported-cookbooks/cutlery
 	url = https://github.com/realityforge/chef-cutlery.git
+[submodule "imported-cookbooks/nginx"]
+	path = imported-cookbooks/nginx
+	url = https://github.com/opscode-cookbooks/nginx.git
+[submodule "imported-cookbooks/runit"]
+	path = imported-cookbooks/runit
+	url = https://github.com/opscode-cookbooks/runit.git

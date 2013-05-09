@@ -8,7 +8,7 @@ version          "1.0.0"
 
 recipe "stackful-python", "The Stackful.io Python web app stack"
 
-%w{ apt build-essential ohai postgresql psql }.each do |cookbook|
+%w{ apt build-essential ohai postgresql psql nginx }.each do |cookbook|
   depends cookbook
 end
 
