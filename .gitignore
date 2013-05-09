@@ -6,3 +6,4 @@ distribute-*
 distribute_*
 chef-*.pid
 chef-*.out
+.debs-cache
