@@ -1,0 +1,10 @@
+description "python-web server"
+
+start on runlevel [2345]
+respawn
+
+setuid <%= node['stackful-python']['user'] %>
+setgid stackful
+
+chdir <%= node['stackful-python']['app-home'] %>
+exec <%= node['stackful-git']['deployer-home'] %>/bin/stackful-web

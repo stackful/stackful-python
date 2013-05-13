@@ -34,5 +34,7 @@ run_list [
   "recipe[postgresql::server]",
   "recipe[stackful-python::postgresql]",
   "recipe[stackful-python::git]",
+  "recipe[stackful-python::app]",
+  "recipe[stackful-python::python]",
   "recipe[stackful-python::nginx]",
 ]
