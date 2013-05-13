@@ -33,5 +33,6 @@ run_list [
   "recipe[postgresql::ppa_pitti_postgresql]",
   "recipe[postgresql::server]",
   "recipe[stackful-python::postgresql]",
+  "recipe[stackful-python::git]",
   "recipe[stackful-python::nginx]",
 ]

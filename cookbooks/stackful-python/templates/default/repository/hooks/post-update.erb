@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import sys, os, subprocess
+
+def run(cmd):
+    subprocess.check_call(cmd, shell=True)
+
+
+params = dict(
+                deployer_home="<%= node["stackful-git"]["deployer-home"] %>",
+                app_user="<%= node["stackful-python"]["user"] %>",
+              )
+
+branch = sys.argv[1].replace("refs/heads/", "")
+if branch != "master":
+    print("Not deploying from branches other than 'master'. Exiting...")
+    sys.exit()
+
+os.unsetenv("GIT_DIR")
+
+deploy_cmd = "{deployer_home}/bin/deploy '{app_user}'".format(**params)
+run(deploy_cmd)
