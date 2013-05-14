@@ -1,0 +1,41 @@
+upstream <%= node["stackful-python"]["app-name"] %> {
+  server localhost:<%= node["stackful-environment"]["PORT"] %>;
+}
+
+
+<% if node["stackful-python"]["ssl-cert"] %>
+server {
+  listen 80;
+  server_name <%= node["stackful-python"]["DOMAIN"] %>;
+  rewrite ^(.*) https://$server_name$1 permanent;
+}
+<% end %>
+
+server {
+<% if node["stackful-python"]["ssl-cert"] %>
+  listen 443;
+<% else %>
+  listen 80;
+<% end %>
+
+  server_name <%= node["stackful-environment"]["DOMAIN"] %>;
+  <% if node["stackful-python"]["ssl-cert"] %>
+  ssl on;
+  ssl_certificate /etc/ssl/certs/<%= node["stackful-python"]["ssl-cert"] %>;
+  ssl_certificate_key /etc/ssl/private/<%= node["stackful-python"]["ssl-key"] %>;
+  <% end %>
+
+  location / {
+    proxy_http_version 1.1;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_buffering off;
+
+    proxy_pass http://<%= node["stackful-python"]["app-name"] %>;
+  }
+
+  location /static {
+    root <%= node["stackful-python"]["app-home"] %>;
+  }
+}

@@ -1,5 +1,6 @@
 {
  "stackful-environment": {
+  "DOMAIN": "demo.stackful.io",
   "PORT": 3000
  },
  "stackful-git": {
