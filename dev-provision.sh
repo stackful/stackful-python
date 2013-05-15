@@ -18,10 +18,6 @@ else
     dpkg -i /vagrant/.debs-cache/chef.deb
 fi
 
-# Prepare stack attributes, if needed
-if [ -f "/etc/stackful/node.json" ] ; then
-    echo "Stack already installed."
-else
-    mkdir -p /etc/stackful
-    cp /vagrant/node.json.sample /etc/stackful/node.json
-fi
+# Prepare stack attributes
+mkdir -p /etc/stackful
+cp /vagrant/node.json.sample /etc/stackful/node.json
