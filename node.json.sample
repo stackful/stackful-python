@@ -1,7 +1,11 @@
 {
  "stackful-environment": {
   "STACK_NAME": "stackful-python",
-  "DOMAIN": "demo.stackful.io",
+  "DOMAIN": "10.100.0.2",
+  "DB_HOST": "localhost",
+  "DB_NAME": "python-web",
+  "DB_USER": "python-web",
+  "DB_PASSWORD": "VRyisb15r2Q15OZ",
   "PORT": 3000
  },
  "stackful-git": {
