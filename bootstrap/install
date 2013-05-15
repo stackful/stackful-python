@@ -1,0 +1,84 @@
+#!/usr/bin/env python
+from __future__ import absolute_import, division, print_function, unicode_literals
+import sys, os, platform
+import subprocess
+import functools
+
+
+# Easy on the wrists
+def run(cmd, cwd=None):
+    return subprocess.check_call(cmd, cwd=cwd, shell=True)
+
+
+def retry_commands(action, retries=1):
+    for i in range(0, retries):
+        try:
+            result = action()
+            return result
+        except subprocess.CalledProcessError:
+            # Scream if it's our last attempt
+            if i >= retries - 1:
+                raise
+
+
+def message(msg):
+    print(msg)
+    sys.stdout.flush()
+
+
+def git_fetch(branch="production", retries=1):
+    def action():
+        if not os.path.exists(stack_source):
+            run("mkdir -p '{}'".format(stack_source))
+
+        git_dir = os.path.join(stack_source, ".git")
+        if not os.path.exists(git_dir):
+            run_stack("git init")
+            run_stack("git remote add origin '{}'".format(stack_repo))
+
+        run_stack("git fetch -f origin {}".format(branch))
+        run_stack("git reset --hard FETCH_HEAD")
+    retry_commands(action, retries)
+
+
+def git_submodule_update(retries=1):
+    def action():
+        run_stack("git submodule update --init")
+    retry_commands(action, retries)
+
+stack_repo = "https://github.com/stackful/stackful-python.git"
+stack_source = "/tmp/stackful-python"
+stack_branch = sys.argv[1] if len(sys.argv) == 2 else "production"
+run_stack = functools.partial(run, cwd=stack_source)
+
+message("Checking if OS/Distro is supported...")
+distro, version, _ = platform.dist()
+os_supported = distro == "Ubuntu" and (version == "12.04" or version == "12.10")
+if not os_supported:
+    message("Unsupported OS/distro. Supported: Ubuntu 12.04, Ubuntu 12.10")
+    sys.exit(255)
+
+message("Installing prerequisite packages...")
+run("DEBIAN_FRONTEND=noninteractive apt-get update --yes")
+run("DEBIAN_FRONTEND=noninteractive apt-get install --yes curl dialog git")
+
+
+message("Fetching stack files from {}/{} ...".format(stack_repo, stack_branch))
+
+git_fetch(branch=stack_branch, retries=5)
+git_submodule_update(retries=5)
+
+chef_installed = False
+try:
+    chef_location = subprocess.check_output("which chef-solo", shell=True)
+    message("Opscode Chef already installed at '{}'".format(chef_location.strip()))
+    chef_installed = True
+except subprocess.CalledProcessError:
+    pass
+
+if not chef_installed:
+    message("Installing Opscode Chef...")
+    run("curl -L https://www.opscode.com/chef/install.sh | bash")
+
+message("Finishing stack installation...")
+run_stack("./run")
