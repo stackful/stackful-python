@@ -7,7 +7,7 @@ virtualenv_container = File.dirname(virtualenv_dir)
 base_requirements_file = "base_requirements.txt"
 log_file = "/var/log/#{app_name}.log"
 gunicorn_config = "/etc/stackful/gunicorn.conf.py"
-
+package 'python-pip'
 execute "create virtualenv container" do
   command <<-EOCOMMAND
 mkdir -p '#{virtualenv_container}' && \
