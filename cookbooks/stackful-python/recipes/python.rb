@@ -16,7 +16,7 @@ EOCOMMAND
 
   not_if { File.exists?(virtualenv_container) }
 end
-package 'python-pip'
+
 # M2Crypto is weird on Ubuntu. Don't install it in the venv, and
 # use the distro package instead.
 # Otherwise, you get errors like:
