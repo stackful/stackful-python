@@ -26,7 +26,6 @@ package "python-m2crypto"
 python_virtualenv "#{virtualenv_dir}" do
   owner user
   group group
-  options "--system-site-packages"
   action :create
 end
 
